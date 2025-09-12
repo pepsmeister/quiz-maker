@@ -1,4 +1,6 @@
-export const QUESTION_TYPE_OPTIONS = [
+import type { Option } from '@/components/radio-controlled/radio-controlled.component'
+
+export const QUESTION_TYPE_OPTIONS: Option[] = [
   {
     id: 'mcq',
     name: 'Multiple Choice',

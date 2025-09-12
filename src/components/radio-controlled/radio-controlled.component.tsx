@@ -6,7 +6,7 @@ import {
   type FieldValues,
 } from 'react-hook-form'
 
-type Option = {
+export type Option = {
   id: string
   name: string
   description?: string

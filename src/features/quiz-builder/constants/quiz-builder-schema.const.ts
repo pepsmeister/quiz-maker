@@ -15,27 +15,31 @@ const isMultipleChoice = Yup.array()
     }
   )
 
-const correctAnswerValidation = Yup.string()
-  .test(
-    'is-correct-answer',
-    'Correct answer must be one of the options.',
-    function (value) {
-      const { type, options } = this.parent ?? {}
+// const correctAnswerValidation = Yup.string()
+//   .test(
+//     'is-correct-answer',
+//     'Correct answer must be one of the options.',
+//     function (value) {
+//       const { type, options } = this.parent ?? {}
 
-      const lowercaseOptions = options?.map((option: string) => {
-        return option.toLowerCase().trim()
-      })
+//       const lowercaseOptions = options?.map((option: string) => {
+//         return option.toLowerCase().trim()
+//       })
 
-      if (type === 'mcq') {
-        return lowercaseOptions?.find(
-          (option: string) => option === value?.toLowerCase().trim()
-        )
-      }
+//       if (type === 'mcq') {
+//         return lowercaseOptions?.find(
+//           (option: string) => option === value?.toLowerCase().trim()
+//         )
+//       }
 
-      return true
-    }
-  )
-  .required('Please provide a correct answer.')
+//       return true
+//     }
+//   )
+//   .required('Please provide a correct answer.')
+
+const correctAnswerValidation = Yup.string().required(
+  'Please provide a correct answer.'
+)
 
 const quizQuestionSchema = Yup.object().shape({
   type: Yup.string().oneOf(['mcq', 'short', 'code']).required('Required'),

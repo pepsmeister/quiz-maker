@@ -1,7 +1,7 @@
 import { API_CLIENT_URL, apiFetch } from '@/config/api-client.config'
-import type { Quiz } from '@/features/quiz-builder/types/quiz-builder.type'
+import type { QuizAttempt } from '@/features/quiz-player/types/quiz-player.type'
 
-export const loadQuiz = async (quizId: string): Promise<Quiz> => {
+export const loadQuiz = async (quizId: string): Promise<QuizAttempt> => {
   const response = await apiFetch(`${API_CLIENT_URL}/attempts`, {
     method: 'POST',
     body: JSON.stringify({ quizId }),

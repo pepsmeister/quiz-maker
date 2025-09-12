@@ -17,5 +17,5 @@ export type QuizQuestionInput = {
   type: QuizType
   prompt: string
   options?: string[]
-  correctAnswer: string
+  correctAnswer: string | number
 }

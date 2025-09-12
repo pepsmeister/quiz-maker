@@ -1,5 +1,8 @@
 import { InputControlled } from '@/components/input-controlled/input-controlled.component'
-import { RadioGroupControlled } from '@/components/radio-controlled/radio-controlled.component'
+import {
+  RadioGroupControlled,
+  type Option,
+} from '@/components/radio-controlled/radio-controlled.component'
 import {
   createQuestion,
   createQuiz,
@@ -48,6 +51,8 @@ export const QuizBuilderView = () => {
   })
 
   const watchQuestions = watch('questions')
+
+  console.log(watchQuestions, 'watchQuestions')
 
   const {
     fields: questionsFields,
@@ -149,24 +154,46 @@ export const QuizBuilderView = () => {
                 control={control}
                 placeholder='Enter question prompt'
               />
+              <br />
               {qType === 'mcq' && (
                 <>
                   <div className='mb-2 font-medium text-white'>Options</div>
                   <OptionsField control={control} index={index} />
-                  {errors.questions?.[index]?.options && (
-                    <div className='text-red-500 text-sm mt-2'>
-                      {errors.questions?.[index]?.options?.message}
+
+                  {/* Select the correct option */}
+                  <div className='mt-4'>
+                    <div className='mb-2 font-medium text-white'>
+                      Correct Answer
                     </div>
-                  )}
+                    <RadioGroupControlled
+                      name={`questions.${index}.correctAnswer`}
+                      control={control}
+                      options={
+                        (watchQuestions[index]?.options?.map(
+                          (opt, optIndex) => ({
+                            id: optIndex.toString(),
+                            name: opt,
+                          })
+                        ) as unknown as Option[]) || []
+                      }
+                    />
+                    {errors.questions?.[index]?.options && (
+                      <div className='text-red-500 text-sm mt-2'>
+                        {errors.questions?.[index]?.options?.message}
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
               <br />
-              <InputControlled
-                label='Correct Answer'
-                name={`questions.${index}.correctAnswer`}
-                control={control}
-                placeholder='Enter correct answer'
-              />
+              {qType === 'short' && (
+                <InputControlled
+                  label='Correct Answer'
+                  name={`questions.${index}.correctAnswer`}
+                  control={control}
+                  placeholder='Enter correct answer'
+                />
+              )}
             </div>
           )
         })}
