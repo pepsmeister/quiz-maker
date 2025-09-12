@@ -3,6 +3,7 @@ import {
   RadioGroupControlled,
   type Option,
 } from '@/components/radio-controlled/radio-controlled.component'
+import { TextAreaControlled } from '@/components/text-area-controlled/text-area-controlled.component'
 import {
   createQuestion,
   createQuiz,
@@ -25,7 +26,7 @@ export const QuizBuilderView = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
     watch,
     reset,
@@ -51,8 +52,6 @@ export const QuizBuilderView = () => {
   })
 
   const watchQuestions = watch('questions')
-
-  console.log(watchQuestions, 'watchQuestions')
 
   const {
     fields: questionsFields,
@@ -144,6 +143,7 @@ export const QuizBuilderView = () => {
                 onChange={(e) => {
                   if (e.target.value !== 'mcq') {
                     setValue(`questions.${index}.options`, undefined)
+                    setValue(`questions.${index}.correctAnswer`, '')
                   }
                 }}
                 className='mb-4'
@@ -154,12 +154,11 @@ export const QuizBuilderView = () => {
                 control={control}
                 placeholder='Enter question prompt'
               />
-              <br />
               {qType === 'mcq' && (
                 <>
+                  <br />
                   <div className='mb-2 font-medium text-white'>Options</div>
                   <OptionsField control={control} index={index} />
-
                   {/* Select the correct option */}
                   <div className='mt-4'>
                     <div className='mb-2 font-medium text-white'>
@@ -185,14 +184,28 @@ export const QuizBuilderView = () => {
                   </div>
                 </>
               )}
-              <br />
               {qType === 'short' && (
-                <InputControlled
-                  label='Correct Answer'
-                  name={`questions.${index}.correctAnswer`}
-                  control={control}
-                  placeholder='Enter correct answer'
-                />
+                <>
+                  <br />
+                  <InputControlled
+                    label='Correct Answer'
+                    name={`questions.${index}.correctAnswer`}
+                    control={control}
+                    placeholder='Enter correct answer'
+                  />
+                </>
+              )}
+
+              {qType === 'code' && (
+                <>
+                  <br />
+                  <TextAreaControlled
+                    label='Correct Answer'
+                    name={`questions.${index}.correctAnswer`}
+                    control={control}
+                    placeholder='Write your code'
+                  />
+                </>
               )}
             </div>
           )
@@ -222,7 +235,7 @@ export const QuizBuilderView = () => {
             type='submit'
             className='cursor-pointer bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 :disabled:opacity-50 disabled:cursor-not-allowed'
           >
-            Submit Quiz
+            {isSubmitting ? 'Submitting...' : 'Submit Quiz'}
           </button>
         </div>
       </div>

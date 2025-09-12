@@ -37,20 +37,20 @@ const isMultipleChoice = Yup.array()
 //   )
 //   .required('Please provide a correct answer.')
 
-const correctAnswerValidation = Yup.string().required(
-  'Please provide a correct answer.'
-)
+const correctAnswerValidation = Yup.string()
+  .required('Please provide a correct answer.')
+  .trim()
 
 const quizQuestionSchema = Yup.object().shape({
   type: Yup.string().oneOf(['mcq', 'short', 'code']).required('Required'),
   correctAnswer: correctAnswerValidation,
-  prompt: Yup.string().required('Please provide a prompt.'),
+  prompt: Yup.string().required('Please provide a prompt.').trim(),
   options: isMultipleChoice,
 })
 
 export const quizBuilderSchema = Yup.object().shape({
-  title: Yup.string().required('Please provide a title.'),
-  description: Yup.string().required('Please provide a description.'),
+  title: Yup.string().required('Please provide a title.').trim(),
+  description: Yup.string().required('Please provide a description.').trim(),
   questions: Yup.array()
     .min(2, 'Please provide at least two questions.')
     .of(quizQuestionSchema)
