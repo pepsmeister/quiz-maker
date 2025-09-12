@@ -4,14 +4,13 @@ export type QuizAttempt = {
   startedAt: string
   submittedAt: string | null
   answers: Answer[]
-  quiz: Quiz
+  quiz: QuizWithQuestions
 }
 
-export type Quiz = {
+export type QuizWithQuestions = {
   id: number
   title: string
   description: string
-  timeLimitSeconds: number
   questions: Question[]
 }
 
@@ -20,7 +19,6 @@ export type Question = {
   quizId: number
   type: 'mcq' | 'short' | 'code'
   prompt: string
-  position: number
   options?: string[] // only present for mcq
 }
 

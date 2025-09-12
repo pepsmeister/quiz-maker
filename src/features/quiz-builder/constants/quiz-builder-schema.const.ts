@@ -27,7 +27,9 @@ const correctAnswerValidation = Yup.string()
       })
 
       if (type === 'mcq') {
-        return lowercaseOptions?.includes(value?.toLowerCase().trim())
+        return lowercaseOptions?.find(
+          (option: string) => option === value?.toLowerCase().trim()
+        )
       }
 
       return true

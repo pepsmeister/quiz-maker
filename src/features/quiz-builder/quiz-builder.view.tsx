@@ -98,7 +98,7 @@ export const QuizBuilderView = () => {
       onSubmit={handleSubmit(onSubmit)}
       className='p-4 space-y-8 bg-gray-900 w-full'
     >
-      <div className='container  mx-auto '>
+      <div className='container mx-auto'>
         <h1 className='text-2xl font-bold mb-4 text-white'>Quiz Builder</h1>
         <InputControlled
           label='Quiz Title'
@@ -184,6 +184,7 @@ export const QuizBuilderView = () => {
         >
           Add Question
         </button>
+        {/* Error message for questions field */}
         {errors.questions?.root && (
           <div className='text-red-500 text-sm mt-2'>
             {errors.questions?.root?.message}
