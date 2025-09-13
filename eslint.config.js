@@ -60,4 +60,11 @@ export default tseslint.config([
       globals: globals.browser,
     },
   },
+  {
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
 ])
