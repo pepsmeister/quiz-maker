@@ -33,12 +33,14 @@
   - **Cons:**
     - May introduce some duplication if features need similar utilities or types (can be refactored into shared folders as needed).
     - Navigating between features may be less direct for very small projects.
+    - Using Tailwind CSS can sometimes lead to verbose class names and may require extra care for accessibility (a11y), as utility classes do not enforce semantic HTML or accessible patterns by default.
 
-## Main Libraries Used
+## Main Libraries & Tools Used
 
 - **React Hook Form**: For building performant, flexible, and easy-to-use forms with minimal re-renders.
 - **Yup**: For schema-based form validation, integrated with React Hook Form for validation logic.
 - **React Router DOM**: For client-side routing and navigation between different views and features.
 - **TanStack Query**: Used for state management and handling API calls, providing efficient data fetching, error handling, caching, and synchronization with the server.
+- **Tailwind CSS**: For rapid UI prototyping and utility-first styling, enabling faster development and consistent design.
 
 ---
