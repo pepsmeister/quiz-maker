@@ -1,69 +1,44 @@
-# React + TypeScript + Vite
+# Simple Quiz Builder App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Running the App Locally
 
-Currently, two official plugins are available:
+1. **Install dependencies:**
+   npm install
+2. **Start the development server:**
+   npm run dev
+3. Open your browser to the local server URL (usually http://localhost:5173).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Architecture Decisions & Trade-offs
 
-## Expanding the ESLint configuration
+- **Feature-based Project Structure:**
+  - Each major feature has its own folder under `src/features/` (e.g., `quiz-builder`, `quiz-dashboard`, `quiz-player`, `quiz-results`).
+  - Inside each feature folder, there are subfolders for `components`, `api`, `hooks`, `constants`, `types`, `utils`, and other domain-specific code.
+  - This structure keeps related code together, making it easier to scale and maintain as the app grows.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Component Organization:**
+  - Components used only by a specific feature are placed inside that feature's `components` folder.
+  - Shared or global components can be placed in a common directory if needed
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **API Layer:**
+  - API calls for each feature are encapsulated in an `api` folder within the feature, keeping data-fetching logic close to where it's used.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Constants, Types, and Utils:**
+  - Each feature can define its own constants, types, and utility functions, reducing cross-feature dependencies and improving code clarity.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Trade-offs:**
+  - **Pros:**
+    - High modularity and separation of concerns.
+    - Easier onboarding for new developers; features are self-contained.
+    - Scales well for large applications.
+  - **Cons:**
+    - May introduce some duplication if features need similar utilities or types (can be refactored into shared folders as needed).
+    - Navigating between features may be less direct for very small projects.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Main Libraries Used
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React Hook Form**: For building performant, flexible, and easy-to-use forms with minimal re-renders.
+- **Yup**: For schema-based form validation, integrated with React Hook Form for validation logic.
+- **React Router DOM**: For client-side routing and navigation between different views and features.
+- **TanStack Query**: Used for state management and handling API calls, providing efficient data fetching, error handling, caching, and synchronization with the server.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
