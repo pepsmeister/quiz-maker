@@ -78,7 +78,14 @@ export const QuizPlayerView = () => {
 
       const submitResults = await submitAttemptMutation(dataAttemptId)
 
-      navigate('/quiz-results', { state: { score: submitResults.score } })
+      navigate('/quiz-results', {
+        state: {
+          score: submitResults.score,
+          details: submitResults.details,
+          answers: payload,
+          questions: data?.quiz.questions || [],
+        },
+      })
     } catch (error) {
       alert(
         `There was an error submitting the quiz. Please try again. ${error}`
@@ -139,6 +146,7 @@ export const QuizPlayerView = () => {
             <div className='mt-6'>
               <button
                 type='submit'
+                disabled={isSubmitting}
                 className='cursor-pointer bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 :disabled:opacity-50 disabled:cursor-not-allowed'
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Quiz'}

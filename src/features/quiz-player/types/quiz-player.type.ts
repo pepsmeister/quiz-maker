@@ -23,11 +23,18 @@ export type Question = {
 }
 
 export type Answer = {
+  [key: string]: string | number
   questionId: number | string
   value: string
 }
 
+export type SubmitResultDetail = {
+  questionId: number
+  correct: boolean
+  expected: string
+}
+
 export type SubmitResult = {
   score: number
-  // details can be added based on requirements
+  details: SubmitResultDetail[]
 }
