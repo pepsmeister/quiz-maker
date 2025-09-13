@@ -74,7 +74,11 @@ export const QuizBuilderView = () => {
     try {
       const { title, description, questions } = data
 
-      const createQuizResult = await createQuizMutation({ title, description })
+      const createQuizResult = await createQuizMutation({
+        title,
+        description,
+        isPublished: true, // always set to true for now so that quiz can be accessed
+      })
 
       const { id: quizId } = createQuizResult
 

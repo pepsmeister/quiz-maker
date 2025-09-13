@@ -42,7 +42,7 @@ export const RadioGroupControlled = <
               key={option.id}
               aria-label={option.name}
               aria-description={option.description}
-              className='group flex border border-gray-700 p-4 first:rounded-t-md last:rounded-b-md focus:outline-none has-[:checked]:relative has-[:checked]:border-indigo-800 has-[:checked]:bg-indigo-500/10'
+              className='cursor-pointer group flex border border-gray-700 p-4 first:rounded-t-md last:rounded-b-md focus:outline-none has-[:checked]:relative has-[:checked]:border-indigo-800 has-[:checked]:bg-indigo-500/10'
             >
               <input
                 {...rest}
