@@ -1,6 +1,7 @@
 type QuizBase = {
   title: string
   description: string
+  isPublished?: boolean
 }
 
 export type Quiz = QuizBase & {
